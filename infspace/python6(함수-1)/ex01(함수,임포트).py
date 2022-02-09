@@ -48,8 +48,8 @@ print("1~10 누적합 : ", result)
 
 result = get_sum(1,30)
 print(type(result))
-print("1~10 누적합 : ", result)
+print("1~30 누적합 : ", result)
 
 result = get_sum(1,100)
 print(type(result))
-print("1~10 누적합 : ", result)
+print("1~100 누적합 : ", result)
