@@ -18,7 +18,7 @@ print("단어의 길이 : ", len_word)
 
 # 상호곱(Cross Product)
 colors = ["흰색", "브라운색", "검정색"]
-cars = ["그랜저", "소나타", "스파크", "아반뗴", "봉고"]
+cars = ["그랜저", "소나타", "스파크", "아반떼", "봉고"]
 colors_cars = [ x + "-" + y for x in colors
                             for y in cars]
 print("색상과 차종 : ", colors_cars)
