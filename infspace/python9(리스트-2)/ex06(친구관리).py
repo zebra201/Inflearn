@@ -40,6 +40,8 @@ def menu_print():
 # 메뉴를 저장할 함수가 필요
 menu_choice = 0     # 메뉴 번호를 저장
 friends = []        # 친구 목록을 저장할 리스트
+phone = []
+
 while True :
     menu_print()
     menu_choice = int(input("메뉴를 선택하시오 : "))
@@ -65,9 +67,10 @@ while True :
     elif menu_choice == 4:
         old_name = input("변경하고 싶은 이름을 입력하세요 : ")
         if old_name in friends :
-            index = friends.index(old_name)
+            index1 = friends.index(old_name)
             new_name = input("새로운 이름을 입력하세요 : ")
-            friends[index] = new_name
+            friends[index1] = new_name
         else:
             print(old_name, "님이 존재하지 않습니다.")
-        
+
+# 친구 추가시 연락처도 함께 추가하는 프로그램으로 업데이트 해보시기 바랍니다.
