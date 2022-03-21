@@ -55,3 +55,23 @@ for i in reader2:
     print(i)
 filepoint.close()
 
+
+
+
+data=[]
+filepoint = open("c:\\ETC\\test.txt", mode = "r", encoding="UTF-8")
+
+
+# 연습
+# for i in filepoint.readlines:
+#     data.append(line.strip())
+# print(data)
+# filepoint.close()
+
+
+# import csv
+# filepoint1 = open("C:\\ETC\\test.txt",mode="r",encoding="UTF-8")
+# a = csv.reader(filepoint1)
+# for i in a:
+#     print(i)
+# filepoint1.close
