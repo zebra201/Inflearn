@@ -10,7 +10,7 @@
 # def cal():
 #     sum = A+B
 #     aver = (A+B)/2
-#     for i, sum, aver in enumerate(data_list):
+#     for i, sum, aver in enumerate(data_list, 1):
 #         return ("{}번째 학생의 총점은 {}점이고, 평균은 {}입니다.".format(i, sum, aver))
         
    
