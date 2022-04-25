@@ -60,13 +60,13 @@ print("-" * 50)
 set6 = set()
 # 아래 update() 문자열 "인간"을 문자로 나누어서 세트에 저장이 된다.
 set6.update("인간",[1,34,5,-10])
-print(set6)
+print("set6은", set6)
 
 print("-" * 50)
 # 아래 update() 문자열 "인간"을 문자로 나누지 않고 세트에 저장이 된다.
 set7 = set()
 set7.update(["인간",1,34,5,-10])
-print(set7)
+print("set7은", set7)
 
 print("-" * 50)
 # 세트의 요소를 삭제하고자 할 때,
