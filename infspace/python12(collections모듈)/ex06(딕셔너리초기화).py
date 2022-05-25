@@ -39,8 +39,3 @@ if __name__ == "__main__":
     print("-" * 50)
     dic = countLetters_defaultdict("가나다라마바사")
     print(dic.items())
-    
-
-# (실습)
-# 이번 예제는 함수를 이용하여 각 알파벳의 글자 수를 세어서 저장을 하고
-# 딕셔너리를 리턴하는 코드를 짜보자
