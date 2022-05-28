@@ -50,6 +50,25 @@ print("-" * 50)
 # _replace() 메소드로 값 변경이 가능하다.
 p1 = p1._replace(name = "강백호")
 p2 = p2._replace(age = 100)
-pe = p3._replace(addr = "달성군")
+p3 = p3._replace(addr = "달성군")
 for n in [p1,p2,p3]:
     print("%s은(는) %d세의 %s 입니다. 그리고 거주지는 %s 입니다." %n)
+print("-" * 50)    
+
+# 생성되어진 Person 이라는 namedtuple 의 _fields 로써
+# Person에 있는 필드명 tuple() 형식으로 리턴을 해준다.
+print(p1._fields)
+
+# getattr() 메소드를 통해 필드명으로 그 값을 출력할 때 사용한다.
+print(getattr(p1, 'name'))
+print(getattr(p2, 'name'))
+print(getattr(p3, 'name'))
+
+# **(double-star-operator) 원래 제곱할 때 사용하는 연산자이나,
+# namedtupe() 딕셔너리 자료구조를 namedtupe() 변환하여 반환한다.
+dic = {'name' : "신은비", "age" : 15, "gender" : "여성", "addr" : "대전"}
+print(type(dic))
+print(dic)
+p4 = Person(**dic)
+print("%s은(는) %d세의 %s 입니다. 그리고 거주지는 %s 입니다." %(p4.name, p4.age, p4.gender, p4.addr))
+print(type(p4))
