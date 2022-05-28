@@ -1,7 +1,4 @@
 # 텍스트 마이닝 기법
-from wsgiref.simple_server import demo_app
-
-
 def file_read(text):
     f_name = open("c:\\Temp\\law.txt", mode = "r", encoding = "UTF-8")
     for line in f_name:
