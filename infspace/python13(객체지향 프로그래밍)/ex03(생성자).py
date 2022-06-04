@@ -30,3 +30,19 @@
 
 # 생성자 추가, getter() 메소드
 # getter() 메소드 : 캡슐화라는 개념이 존재, 클래스의 필드를 외부로 노출시키는 것을 방지한다.(은닉화)
+
+
+student=[85,65,77,83,75,22,98,88,38,100]
+i=len(student)
+sum=0
+while i > 0:
+    if student[i] < 80:
+        student.pop()
+    else:
+        sum=sum+student[i]
+        i=i-1
+print(sum)
+
+
+# student=[85,65,77,83,75,22,98,88,38,100]
+# print(student[0])
