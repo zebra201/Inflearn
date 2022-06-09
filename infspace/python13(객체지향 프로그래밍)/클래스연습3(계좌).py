@@ -16,33 +16,36 @@ class Account:
     # 필드 선언
     __balance = 0
     
-    # 기본생성자
+    # 생성자 선언
     def __init__(self):
         self.__balance = 0
     
-    # getter() 메서드 제공        
+    # getter, setter
     def getBalance(self):
         return self.__balance
     
-    # 입금 메서드 만들기
+    # 입금 메소드
     def deposit(self, amount):
         self.__balance += amount
-        print("통장에 ", format(amount,","),"원이 입금됨")
-        print("현재잔액 : ", format(self.getBalance(),",") ,"원")
+        print(format(amount,","),"원이 입금되었습니다")
+        print("현재 잔액은", format(self.getBalance(),","),"입니다.")
+        return self.__balance
     
-    # 출금 메서드 만들기
+    # 출금 메소드
     def withdraw(self, amount):
         self.__balance -= amount
         if self.__balance < 0:
             print("잔액이 부족합니다.")
             return
-        else:
-            print("통장에 ", format(amount,","),"원이 출금됨")
-            print("현재잔액 : ", format(self.__balance,",") ,"원")
+        else :
+            print(format(amount,","),"원이 출금되었습니다")
+            print("현재 잔액은", format(self.getBalance(),","),"입니다.")
     
 
 if __name__ == "__main__":
-    # choice = int(input("입급은 deposit, 출금은 2번을 눌러주세요 : "))
-    account = Account()
-    account.deposit(1000000)
-    account.withdraw(200000)
+    account1 = Account()
+    account1.deposit(1000000)
+    account1.withdraw(200000)
+    
+    
+
