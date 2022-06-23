@@ -1,2 +1,0 @@
-ed
-        self.door = door
