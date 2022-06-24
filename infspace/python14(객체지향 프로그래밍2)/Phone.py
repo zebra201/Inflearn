@@ -2,6 +2,7 @@
 # 모든 클래스의 최고 조상클래스는 object 클래스이다.
 
 class Phone(object):
+    # 폰 멤버의 개수는 8개이다
     # 생성자
     def __init__(self):
         self.model = ""
