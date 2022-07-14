@@ -1,3 +1,4 @@
+# 이론1
 # 파이썬 라이브러리 중 "tkinter"
 # 파이썬에서 그래픽 사용자 인터페이스(GUI) 를 개발할 때 필요한 모듈이다.
 # 유일한 GUI 모듈은 아니지만 현재 가장 많이 사용되는 GUI 모듈이다.
@@ -19,4 +20,33 @@ label.pack()
 
 # pack()이 호출되면 위젯에 나타난다.
 # 윈도우를 닫을 떄까지 이벤트 루프에서 대기
+# window.mainloop()
+# --------------------------------------------------------------
+
+# 이론2
+# 버튼과 이벤트 처리 : 버튼은 다양한 용도로 사용되는 표준 tkinter 위젯이다
+# 사용자와 상호작용을 할 목적으로 설계된 위젯이다.
+# 반드시 pack()을 호출해야 화면에 벝은이 표시된다.
+b1 = Button(window, text = "이것은 파이썬 버튼입니다.")
+b2 = Button(window, text = "이것은 파이썬 버튼입니다.")
+# padding = 안쪽여백
+# margin = 바깥여백
+# padx = 가로 여백
+# padx = 세로 여백
+b1.pack(side=LEFT, padx=10)
+b2.pack(side=LEFT, padx=10, pady=10)
+
+# 버튼의 텍스트는 다음과 같이 변경 가능
+b1["text"] = "One"
+# window.mainloop()
+
+# tkinter 프로그램은 이벤트에 기반을 두고 ㅈ동작
+# 이벤트가 발생하였을때 호출되는 이러한 함수를 콜백함수, 또는 핸들러라고 한다
+# ex --> button = Button(window,text = "one", command = 함수 이름)
+
+def callback():
+    button["text"] = "버튼이 클릭되었음"
+
+button = Button(window, text = "클릭", command = callback)
+button.pack(side=LEFT)
 window.mainloop()
