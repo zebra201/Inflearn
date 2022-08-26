@@ -1,11 +1,17 @@
 # 메모장 만들기
 # 1단계 : GUI 만들기
 # 2단계 : 파일 메뉴 기능 입히기
+# 3단계 : 편집 기능 입히기
+# 4단계 : 도움말 메뉴 익히기
 
 from tkinter import *
 from tkinter.filedialog import *
-# 파일 이르믕ㄹ 가져오기 위해서 os 모듈을 임포트
+# 파일 이름을 가져오기 위해서 os 모듈을 임포트
 import os
+
+
+# 전역변수 초기화
+es = ""
 
 # 새파일 클릭시 호출되는 함수를 정의
 def newFile():
@@ -14,6 +20,8 @@ def newFile():
     # text 의 인덱스는 y.x 다시 말해서
     # x열을 하숑한다. 1.0은 첫 번째 문자가 된다.
     ta.delete(1.0, END)
+    
+# 편집 메뉴 기능 입히기
 
 # 열기 메뉴 클릭시 호출되는 함수를 정의
 def openFile():
@@ -41,47 +49,83 @@ def saveFile():
 def memo_exit():
     top.quit()
     top.destroy()
+
+# 편집 메뉴 기능 입히기
+# 잘라내기 메뉴를 클릭시 호출되는 함수 정의
+def cut():
+    global es
+    # es 변수에게 선택된 문자열을 저장한 후 삭제
+    # 문자열의 인덱스는 시작이 SEL_FIRST, 마지막이 SEL_LAST 로 접근이 가능하다.
+    # 선택된 문자열 부분은 색상을 주도록 한다.
+    es = ta.get(SEL_FIRST, SEL_LAST)
+    ta.delete(SEL_FIRST, SEL_LAST)  # 잘라낸 부분을 지운다.
+
+# 복사하기 메뉴를 클릭시 호출되는 함수 정의
+def copy():
+    global es
+    es = ta.get(SEL_FIRST, SEL_LAST)
     
-top = Tk()
-top.title("메모장")
-top.geometry("400x400")
+# 붙이기 메뉴를 클릭시 호출되는 함수 정의
+def paste():
+    global es
+    # INSERT 상수는 커서의 위치를 가지고 있다.
+    ta.insert(INSERT, es)
 
-ta = Text(top)      # 텍스트 위젯을 생성함
-sb = Scrollbar(ta)  # 텍스트 위젯의 스크롤바를 생성함
-sb.config(command=ta.yview())   # yview = y축 스크롤바
-sb.pack(side=RIGHT, fill=Y)
+# 삭제하기 메뉴 클릭시 호출되는 함수 정의
+def delete():
+    ta.delete(SEL_FIRST, SEL_LAST)
+    
+# 도움말 메뉴를 클릭시 호출되는 함수 정의
+def help():
+    # Toplevel 은 컨테이너이다
+    he = Toplevel(top)
+    he.geometry("200x200")
+    he.title("정보")
+    lbl = Label(he, text = "메모장 버전 1.0\n파이썬으로 만든 메모장!")
+    lbl.pack()
 
-# 메모장의 기본크기를 설정했지만, 나중에 변경될 수 있기 때문에 설정함.
-# Text 위젯이 자동으로 확대 되기 위해서 아래와 같은 코드를 사용
-# weight 는 상대적인 크기를 나타내는 매개변수이며 1로 지정하면 전체화면의
-# 크기에 맞추어서 확장이 자동으로 이루어진다.
-top.grid_rowconfigure(0, weight=1)      # 줄을 전체 크기로 설정함
-top.grid_columnconfigure(0, weight=1)   # 열을 전체 크기로 설정함
-ta.grid(sticky=N+E+S+W)     # Text 위젯이 좌우 상하를 다 채우도록 고정
 
-# 메뉴 만들기
-mb = Menu(top)
+if __name__ == "__main__":
+    top = Tk()
+    top.title("메모장")
+    top.geometry("400x400")
 
-# 파일 메뉴를 만드는 코드
-fi = Menu(mb, tearoff=False)    # 점선 없애기
-fi.add_command(label="새파일", command = newFile)
-fi.add_command(label="열기", command=openFile)
-fi.add_command(label="저장", command=saveFile)
-fi.add_separator()      # 분리선 추가
-fi.add_command(label="종료", command=memo_exit)
-mb.add_cascade(label="파일", menu=fi)   # 파일 메뉴를 메뉴바에 붙이기
+    ta = Text(top)      # 텍스트 위젯을 생성함
+    sb = Scrollbar(ta)  # 텍스트 위젯의 스크롤바를 생성함
+    sb.config(command=ta.yview())   # yview = y축 스크롤바
+    sb.pack(side=RIGHT, fill=Y)
 
-# 편집 메뉴를 만드는 코드
-e = Menu(mb, tearoff=False)
-e.add_command(label="잘라내기")
-e.add_command(label="복사")
-e.add_command(label="붙이기")
-e.add_command(label="삭제")
-mb.add_cascade(label="편집", menu=e)    # 편집 메뉴를 메뉴바에 붙이기
+    # 메모장의 기본크기를 설정했지만, 나중에 변경될 수 있기 때문에 설정함.
+    # Text 위젯이 자동으로 확대 되기 위해서 아래와 같은 코드를 사용
+    # weight 는 상대적인 크기를 나타내는 매개변수이며 1로 지정하면 전체화면의
+    # 크기에 맞추어서 확장이 자동으로 이루어진다.
+    top.grid_rowconfigure(0, weight=1)      # 줄을 전체 크기로 설정함
+    top.grid_columnconfigure(0, weight=1)   # 열을 전체 크기로 설정함
+    ta.grid(sticky=N+E+S+W)     # Text 위젯이 좌우 상하를 다 채우도록 고정
+
+    # 메뉴 만들기
+    mb = Menu(top)
+
+    # 파일 메뉴를 만드는 코드
+    fi = Menu(mb, tearoff=False)    # 점선 없애기
+    fi.add_command(label="새파일", command = newFile)
+    fi.add_command(label="열기", command=openFile)
+    fi.add_command(label="저장", command=saveFile)
+    fi.add_separator()      # 분리선 추가
+    fi.add_command(label="종료", command=memo_exit)
+    mb.add_cascade(label="파일", menu=fi)   # 파일 메뉴를 메뉴바에 붙이기
+
+    # 편집 메뉴를 만드는 코드
+    e = Menu(mb, tearoff=False)
+    e.add_command(label="잘라내기", command = cut)
+    e.add_command(label="복사", command = copy)
+    e.add_command(label="붙이기", command = paste)
+    e.add_command(label="삭제", command=delete)
+    mb.add_cascade(label="편집", menu=e)    # 편집 메뉴를 메뉴바에 붙이기
 
 # 도움말 메뉴를 만드는 코드
 h = Menu(mb, tearoff=False)
-h.add_command(label="메모장 정보")
+h.add_command(label="메모장 정보", command=help)
 mb.add_cascade(label="도움말", menu=h)   # 도움말 메뉴를 메뉴바에 붙이기
 
 top.config(menu=mb)
