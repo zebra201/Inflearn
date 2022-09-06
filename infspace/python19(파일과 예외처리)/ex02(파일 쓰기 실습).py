@@ -14,3 +14,4 @@ file.write("이현호\n")
 # print 문의 매개변수인 file 을 이용하면 해당 파일에 내용을 추가 할 수 있다.
 print("박태환\n", file=file)
 file.close()
+
