@@ -1,0 +1,1 @@
+ch = infile.read(1)
