@@ -8,3 +8,26 @@
 # 문장을 실행하면 대기상태로 빶비고 다음 문장을 실행한다.
 # 그리고 난 후 다시 yield 키워드를 만나면 또 다시 그러한 형태를 취하며
 # 아울러 메모리 적재방식에서도 하나하나씩 출력한다는 것이 차이점이다.
+
+# def MyCounterGen(low, high):
+#     while low <= high:
+#         yield low
+#         low += 1
+        
+# if __name__ == "__main__":
+#     for n in MyCounterGen(1,10):
+#         print(n, end=" ")
+        
+        
+import time
+def gen(count):
+    start = 1
+    while start <= count:
+        yield start     # yield 를 실행하고 대기 상태
+        time.sleep(2)   # yield start 를 실행한 후 2초간 대기
+        print("while문 start 값:", start)
+        start += 1
+
+if __name__ == "__main__":
+    for n in gen(3):
+        print("for문 실행 n값 :", n, end = " ")
