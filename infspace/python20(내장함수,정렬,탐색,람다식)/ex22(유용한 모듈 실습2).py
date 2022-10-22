@@ -23,18 +23,30 @@ print("-" * 50)
 # random 모듈에 있는 함수를 사용하여 알파벳 a부터 z사이에서
 # 랜덤하게 10개의 문자를 출력하는 프로그램을 작성하시오.
 str1 = "abcdefghijklnmopqrstuvwxyz"
-result2 = ""
-for i in range(0,10):
-    # result2 = random.choice(str1)       # 중복 허용
-    result2 = random.sample(str1, 1)    # 중복 미허용
-    print("알파벳에서 추출한 문자", i+1," : ", result2)
-# 중복된 값을 제외하고 해볼 것
+# result2 = ""
+# for i in range(0,10):
+#     result2 = random.choice(str1)       # 중복 허용
+#     # result2 = random.sample(str1, 1)    # 중복 미허용
+#     print("알파벳에서 추출한 문자", i+1," : ", result2)
 # --------------------------------------------------------
 # result2 = ""
 # result2 = random.sample(str1, 10)    # 중복 미허용
 # print("알파벳에서 추출한 문자 : ", result2)
 # --------------------------------------------------------
-print("-" * 50)
+# 중복된 값을 제외하고 해볼 것(random.choice 를 이용하여)
+result2 = ""
+data = []
+while True:
+    result2 = random.choice(str1)
+    if result2 not in data:
+        data.append(result2)
+    if len(data)==10:
+        break
+    
+print("알파벳에서 추출한 문자", data)
+print("-" * 50)        
+
+# --------------------------------------------------------
 
 # 문제3
 # 100과 200 사이에서 5개의 짝수 난수를 발생시키는 프로그램을 작성하시오
