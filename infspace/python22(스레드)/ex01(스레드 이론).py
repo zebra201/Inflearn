@@ -49,7 +49,7 @@ class Worker(threading.Thread):
     # 종료되는 순서가 바뀔 수 있다.
     def run(self):
         print("작업 스레드 시작 : ", threading.currentThread().getName())
-        time.sleep(5)       # 3초간 스레드 일시정지
+        time.sleep(3)       # 3초간 스레드 일시정지
         print("작업 스레드 종료 : ", threading.currentThread().getName())
         
 if __name__ == "__main__":
