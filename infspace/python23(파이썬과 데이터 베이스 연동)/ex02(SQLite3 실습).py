@@ -11,10 +11,10 @@
 
 # DDL : Data Definition Language
 
-
+# create table userTable(id char(4), userName char(15), email char(15), birthYear int);
 
 # .schema userTable: userTable 이 어떻게 만들어졌는지 말해줌
-# create table userTable : userTable 새성
+# create table userTable : userTable 생성
 # drop table userTable : userTable 삭제
 # sqlite> .table    # 테이블 열기
 # userTable
