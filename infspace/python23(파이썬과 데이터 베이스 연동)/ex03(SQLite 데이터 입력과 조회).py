@@ -38,7 +38,9 @@ cur = con.cursor()        # 커서 생성(커서도 객체임)
 # table이 이미 존재하는 에러가 발생한다.
 # 1번째 해결방법
 cur.execute("drop table if exists userTable")       # 이미 존재시 기존 테이블 삭제
-cur.execute("create table userTable(id char(4), userName char(15),\
+# id 는 중복가능하면 안되는 컬럼이므로 PK로 설정한다.(중복허용방지)
+# sqlite3 에서는 primary key 가 안됨(중복은 방지한다)
+cur.execute("create table userTable(id char(4) primary key, userName char(15),\
             email char(15), birthYear int)")
 # 2번째 해결방법
 # 아래 코드는 userTable라는 테이블이 존재하지 않는다면 만들고 있다면, 만들지 않고
