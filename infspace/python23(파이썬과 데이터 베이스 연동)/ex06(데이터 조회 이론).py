@@ -26,6 +26,7 @@ import sqlite3
 con, cur = None, None
 id, userName, email, birthYear = "", "", "", ""
 row = None          # 한 행을 가져와서 저장할 전역변수
+rows = None         # 전체 행을 가져와서 저장할 전역변수
 
 if __name__ == "__main__":
     # DB 연결
@@ -62,6 +63,16 @@ if __name__ == "__main__":
         email = row[2]
         birthYear = row[3]
         print("%5s    %15s    %15s        %5d" % (id,userName,email,birthYear))
+    
+    # print("전체 행을 한번에 가져오는 fetchall() 함수 사용")
+    # fetchall() 를 사용하면 튜플리스트 형태로 전체 행을 반환해준다.
+    # rows = cur.fetchall()
+    # for data in rows:
+    #     print(data)
+    
+    
+    print(rows)
+    
     
     # DB연결 해제
     con.close()
