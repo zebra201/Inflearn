@@ -5,15 +5,80 @@
 # 외부 라이브러리를 이용하여 파이썬 안에서 사용할 수 있게한다.
 
 from tkinter import *
+from tkinter.filedialog import *
+# 이미지 처리 기능을 제공하는 Pillow 라이브러리를 import 함.
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
+
 
 # 전역변수 선언 및 초기화
 window, canvas, paper = None, None, None
 photo, photo2 = None, None
 oriX, oriY = 0, 0
 
+def displayImage(img, width, height):
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    # 화면 크기 설정
+    window.geometry(str(width) + "x" + str(height))
+    print(str(width) + ", "+ str(height))
+    # 기존 canvas 에 출력한 그림이 있다면...
+    if canvas != None:
+        canvas.destroy()        # canvas 를 깨끗하게 만든다.
+    
+    # canvas 생성
+    canvas = Canvas(window, width=width, height=height)
+    paper = PhotoImage(width=width, height=height)
+    # 이미지의 폭을 절반 값과 높이의 절반 값의 위치에 이미지를 생성한다.
+    canvas.create_image((width/2, height/2), image=paper)
+    
+    rgbString = ""
+    rgbImage = img.convert("RGB")
+    # cnt = 0
+    
+    # 높이와 너비만큼 더블루프를 돌면서 rgb 값을 getpixel()로
+    # 추출하여 16진수 형태로 rgbString에 누적시키고 있다.
+    for i in range(0, height):
+        tmpString = ""
+        for j in range(0, width):
+            # 복사된 이미지 객체에 getpixel() 를 이용하여 rgb 값을 얻어낼 수 있다.
+            r,g,b = rgbImage.getpixel((j, i))
+            tmpString += "#%02x%02x%02x " % (r, g, b)   # 반드시 x 값 뒤에 한 칸 공백을 두어야 한다.(중요)
+            # cnt += 1
+        rgbString += "{" + tmpString + "} "      # } 뒤에 한칸 공백(중요)
+    # print(rgbString, "cnt : ", cnt)
+    # rgb 문자열 값을 paper 에 대입시키면서 paper 에 이미지를 출력시키고 있다.
+    paper.put(rgbString)
+    canvas.pack()
+        
+
 # 파일 열기
 def func_open():
-    pass
+    # photo 는 원본 이미지를 저장할 변수,
+    # photo2 는 이미지 처리 후 나타나는 결과 이미지를 저장할 변수,
+    # oriX, oriY 는 원본 이미지의 폭과 높이를 저장할 변수
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    # 파일다이얼로그(열기)를 통하여 원하는 이미지를 사용자가 선택할 수 있도록 한다.
+    readFp = askopenfilename(parent = window, filetypes=(("모든 그림 파일", "*.jpg;*.jpeg;*.bmp;*"
+                                                          ".png;*.tif;*.gif"),("모든 파일", "*.*")))
+
+    # 파이썬에서 제공하는 PhotoImage() 가 아닌 Pillow 라이브러리에서 제공하는
+    # image.open() 함수를 사용하도록 한다.
+    # 파이썬에서 제공하는 PhotoImage() 클래스는 이미지 파일의 확장자가
+    # .gif, .png 만 지원하므로 한계가 있다.
+    # 사용자가 선택한 이미지를 읽고 RGB 모드로 변화시키고 있다.
+    photo = Image.open(readFp).convert('RGB')
+    # 원본 이미지의 너비와 높이를 저장하고 있다.
+    oriX = photo.width
+    oriY = photo.height
+    
+    # 원본 이미지(pillow 라이브러리에 있음) 를 photo2 변수에 복사하여 대입
+    photo2 = photo.copy()
+    newX = photo2.width
+    newY = photo2.height
+    print(newX, ",", newY)      # 복사된 이미지의 높이와 너비값을 출력해봄
+    # 복사한 내용을 가지고 displayImage() 함수를 호출하고 있다.
+    displayImage(photo2, newX, newY)
+    
+    
 
 # 파일 저장
 def func_save():
