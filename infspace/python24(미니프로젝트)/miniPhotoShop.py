@@ -6,6 +6,7 @@
 
 from tkinter import *
 from tkinter.filedialog import *
+from tkinter.simpledialog import *
 # 이미지 처리 기능을 제공하는 Pillow 라이브러리를 import 함.
 from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 
@@ -82,19 +83,48 @@ def func_open():
 
 # 파일 저장
 def func_save():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    # photo2 가 None 이라는 것은 복사된 이미지
+    # 객체가 없다... 라면 return 을 이용하여 함수를 종료시킴
+    if photo2 == None:
+        return
+    # 파일 다이얼로그(저장)를 띄어서 사용자로부터 파일명을 입력받고 저장하는 방식인데
+    # 여기서는 이미지 파일을 저장할 때 기본값으로 .jpg 파일로 저장하게끔 하였다.
+    saveFp = asksaveasfile(parent=window, mode="w", defaultextension=".jpg",
+                           filetypes=(("JPG 파일","*.jpg;*.jpeg"),("모든 파일", "*.*")))
+    # 사용자가 입력한 파일명으로 저장
+    photo2.save(saveFp.name)
 
 # 파일 종료
 def func_exit():
-    pass
+    exit()
 
 # 확대
 def func_zoomin():
-    pass
-
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    scale = askinteger("확대배수", "확대할 배수를 입력해주세요.", minvalue=2, maxvalue=5)
+    photo2 = photo.copy()
+    
+    # Pillow 라이브러리에서 제공하는 resize() 함수는
+    # 간단하게 이미지를 확대 및 축소를 할 수 있다.
+    # 하지만 확대 배수가 너무 크면 메모리나 속도 측면에서 시간이 오래 걸릴수 있다.
+    # photo2 에 이미지 사이즈를 변경하여 변경된 이미지 객체를 photo2 에 대입하고 있다.
+    photo2 = photo2.resize((int(oriX * scale), int(oriY * scale)))
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
+    
+    
 # 축소
 def func_zoomout():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    scale = askinteger("축소배수", "축소할 배수를 입력해주세요.", minvalue=2, maxvalue=5)
+    photo2 = photo.copy()
+    
+    photo2 = photo2.resize((int(oriX / scale), int(oriY / scale)))
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 상하반전
 def func_mirror1():
