@@ -128,35 +128,100 @@ def func_zoomout():
 
 # 상하반전
 def func_mirror1():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    photo2 = photo.copy()
+    # 이미지를 상하로 반전할 때는 transpose(Image.FLIP_TOP_BOTTOM) 를 사용하면 쉽다.
+    photo2 = photo2.transpose(Image.FLIP_TOP_BOTTOM)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
+    
 
 # 좌우반전
 def func_mirror2():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    photo2 = photo.copy()
+    # 이미지를 좌우로 반전할 때는 transpose(Image.FLIP_LEFT_RIGHT) 를 사용하면 쉽다.
+    photo2 = photo2.transpose(Image.FLIP_LEFT_RIGHT)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 회전
 def func_rotate():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    degree = askinteger("회전기능", "회전할 각도를 입력하세요.", minvalue=0, maxvalue=360)
+    photo2 = photo.copy()
+    # 이미지를 회전할 때는 rotate() 를 사용한다. 매개변수값으로 각도와 expand 값을
+    # 설정하는데 여기서 expand 값을 True 로 설정하면 회전결과 이미지를 확대하고,
+    # False 를 설정하면 원본 크기를 그대로 유지한다.
+    photo2 = photo2.rotate(degree, expand=True)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 이미지 밝게
 def func_bright():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    value = askfloat("밝게", "값을 입력하세요(1.0~16.0)", minvalue=1.0, maxvalue=16.0)
+    photo2 = photo2.copy()
+    # 이미지를 밝게, 어둡게 처리 하고자 한다면 ImageEnhance.Brightness(이미지).enhance(밝기값) 함수를 사용
+    # 하면 된다. 밝기 값은 1.0이면 원본 이미지의 밝기 값이고,
+    # 1.0이 초과되면 이미지를 밝게 처리하고, 1.0. 미만이면 이미지를 어둡게 처리한다.
+    photo2 = ImageEnhance.Brightness(photo2).enhance(value)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 이미지 어둡게
 def func_dark():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    value = askfloat("어둡게", "값을 입력하세요(0.0~1.0)", minvalue=0.0, maxvalue=1.0)
+    photo2 = photo2.copy()
+    # 이미지를 밝게, 어둡게 처리 하고자 한다면 ImageEnhance.Brightness(이미지).enhance(밝기값) 함수를 사용
+    # 하면 된다. 밝기 값은 1.0이면 원본 이미지의 밝기 값이고,
+    # 1.0이 초과되면 이미지를 밝게 처리하고, 1.0. 미만이면 이미지를 어둡게 처리한다.
+    photo2 = ImageEnhance.Brightness(photo2).enhance(value)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 블러 처리
 def func_blur():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    photo2 = photo2.copy()
+    # 이미지에 특수효과를 주려면 filter(ImageFilter.필터)함수를 사용하면 된다.
+    # 블러링은 BLUR 필터를 사용하고, 엠보싱은 EMBOSS 필터를 사용하면 된다.
+    # 그 밖에도 CONTOUR, DETAIL, EDGE_ENHANCE, EDGE_ENHANCE_MORE,
+    # 등의 특수효과들이 존재한다 (DOCS 참고)
+    photo2 = photo2.filter(ImageFilter.BLUR)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 엠보싱 처리
 def func_embo():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    photo2 = photo2.copy()
+    photo2 = photo2.filter(ImageFilter.EMBOSS)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
 
 # 흑백
 def func_bw():
-    pass
+    global window, canvas, paper, photo, photo2, oriX, oriY
+    photo2 = photo2.copy()
+    # 컬러이미지를 흑백이미지로 변경하려면 ImageOps.grayscale(이미지)함수를 사용하면 된다.
+    photo2 = ImageOps.grayscale(photo2)
+    newX = photo2.width
+    newY = photo2.height
+    displayImage(photo2, newX, newY)
+    
+
+# 미니포토샵 프로그램에서 Pillow 라이브러리 모듈은 이 외에도 상당한 많은 고급 모듈과
+# 기능을 제공한다. 많은 모듈하고 기능은 pillow docs 를 참조하도록 하자.
+    
 
 if __name__ == "__main__":
     window = Tk()       # 윈도우 설정
